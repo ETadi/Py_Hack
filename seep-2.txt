@@ -1,0 +1,9 @@
+How to Analyze Data With the Data Science Workflow?
+
+When data professionals start a new project involving data analysis, they generally follow a five-step process. It’s what we call the data science workflow, whose parts you can see below:
+
+1.Identify business questions
+2.Collect and store data
+3.Clean and prepare data
+4.Analyze data
+5.Visualize and communicate data
