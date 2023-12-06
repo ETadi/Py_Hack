@@ -1,0 +1,80 @@
+Elizabeth's file
+
+
+interbeat_intervals_minutes = [interval / 60 for interval in interbeat_intervals]
+
+# Calculate the mean interbeat interval per minute
+mean_IBI_per_minute = sum(interbeat_intervals_minutes) / len(interbeat_intervals_minutes)
+
+The Root Mean Square of Successive Differences (RMSSD) is a measure used in heart rate variability analysis. To calculate RMSSD for a 30-minute interval based on mean interbeat interval per minute (IBI), you can follow these steps:
+
+Obtain the mean interbeat interval per minute for the 30-minute interval.
+Calculate the differences between successive IBIs.
+Square these differences and compute their mean.
+Take the square root of the result to get RMSSD.
+Add this RMSSD value to the mean interbeat i
+
+Calculate differences between successive IBIs
+differences = [interbeat_intervals[i + 1] - interbeat_intervals[i] for i in range(len(interbeat_intervals) - 1)]
+
+# Calculate differences between successive IBIs
+differences = np.diff(mean_IBI_per_minute)
+# Calculate the mean interbeat interval per minute
+mean_IBI_per_minute = sum(interbeat_intervals_minutes) / len(interbeat_intervals_minutes)
+
+# Square the differences
+squared_differences = [diff ** 2 for diff in differences]
+
+# Calculate the mean of squared differences
+mean_squared_difference = np.mean(squared_differences)
+
+# Calculate RMSSD (Root Mean Square of Successive Differences)
+RMSSD = np.sqrt(mean_squared_difference)
+
+
+# Add RMSSD to the mean interbeat interval
+mean_IBI_with_RMSSD = mean_IBI_per_minute + RMSSD
+
+data = np.array([100, 101, 102, 103, 104, 105, 106, 107, 108, 109])
+rmssd_value = rmssd(data)
+print(rmssd_value)
+diff = np.diff(data)
+  return np.sqrt(np.mean(diff**2))
+
+
+
+import pandas as pd
+import numpy as np
+
+def rmssd(ibi):
+  """Calculates the root mean square of successive differences (RMSSD) for a given IBI series.
+
+  Args:
+    ibi: A Pandas Series of IBI values.
+
+  Returns:
+    The RMSSD value.
+  """
+
+  # Calculate the successive differences.
+  diff = ibi.diff()
+
+  # Square the differences.
+  squared_diff = diff ** 2
+
+  # Calculate the mean of the squared differences.
+  mean_squared_diff = squared_diff.mean()
+
+  # Calculate the RMSSD.
+  rmssd = np.sqrt(mean_squared_diff)
+
+  return rmssd
+
+# Load the IBI data.
+ibi = pd.read_csv('ibi.csv', index_col='timestamp')
+
+# Calculate the RMSSD for the 30-minute interval.
+rmssd_30min = rmssd(ibi.iloc[:30])
+
+# Print the RMSSD value.
+print(rmssd_30min)
