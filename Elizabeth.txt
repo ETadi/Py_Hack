@@ -42,6 +42,25 @@ diff = np.diff(data)
   return np.sqrt(np.mean(diff**2))
 
 
+------------------------
+
+
+import numpy as np
+
+interbeat_intervals = [0.446, 0.473, 0.444, 0.496, 0.448, 0.516, 0.563, 0.493, 0.556]
+
+# Convert interbeat intervals from seconds to minutes
+interbeat_intervals_minutes = [interval / 60 for interval in interbeat_intervals]
+
+# Calculate the mean interbeat interval per minute
+mean_IBI_per_minute = np.mean(interbeat_intervals_minutes)
+
+print(f"Mean interbeat interval per minute: {mean_IBI_per_minute:.4f} minutes")
+
+# Calculate differences between successive IBIs
+differences = np
+
+
 
 import pandas as pd
 import numpy as np
@@ -78,3 +97,101 @@ rmssd_30min = rmssd(ibi.iloc[:30])
 
 # Print the RMSSD value.
 print(rmssd_30min)
+
+
+------------------------
+
+
+import numpy as np
+
+interbeat_intervals = [0.446, 0.473, 0.444, 0.496, 0.448, 0.516, 0.563, 0.493, 0.556]
+
+# Convert interbeat intervals from seconds to minutes
+interbeat_intervals_minutes = [interval / 60 for interval in interbeat_intervals]
+
+# Calculate the mean interbeat interval per minute
+mean_IBI_per_minute = np.mean(interbeat_intervals_minutes)
+
+print(f"Mean interbeat interval per minute: {mean_IBI_per_minute:.4f} minutes")
+
+# Calculate differences between successive IBIs
+differences = np
+
+----------------
+
+dict_df = pd.read_excel('Exam Stress Final.xlsx', 
+                   sheet_name=['Grades','Demography','EDA','HR','Temp','IBI'])
+# Get DataFrame from Dict
+df1= dict_df .get('Grades')
+df2 = dict_df.get('Demography')
+df3=dict_df.get('EDA')
+df4=dict_df.get('HR')
+df5=dict_df.get('Temp')
+df6=dict_df.get('IBI')
+
+--------------------------
+second question
+--------------
+import pandas as pd
+
+# Read the Excel file into a pandas DataFrame
+file_path = 'path_to_your_file.xlsx'  # Replace with your file path
+df = pd.read_excel(file_path)
+
+# Define a function to categorize the time into parts
+def categorize_time(time):
+    if time <= 60:  # Assuming 60 minutes for each part (adjust as needed)
+        return 'First'
+    elif 60 < time <= 120:
+        return 'Second'
+    else:
+        return 'Third'
+
+# Apply the function to create a new column 'Time_Part'
+df['Time_Part'] = df['Time in Mins'].apply(categorize_time)
+
+# Group the DataFrame by 'Exam' and 'Time_Part'
+grouped = df.groupby(['Exam', 'Time_Part'])
+
+# Iterate through the groups
+for group_name, group_data in grouped:
+    print(f"Group: {group_name}")
+    print(group_data)
+    print("\n")
+
+---------------------
+17
+-------------
+# Read the Excel file into a pandas DataFrame
+file_path = 'path_to_your_file.xlsx'  # Replace with your file path
+df = pd.read_excel(file_path)
+
+# Calculate the count of each race
+race_counts = df['Race'].value_counts()
+
+# Calculate the total number of entries
+total_entries = race_counts.sum()
+
+# Calculate the percentage of each race
+race_percentages = (race_counts / total_entries) * 100
+
+# Display the percentages of each race
+print("Race Percentages:")
+print(race_percentages)
+
+if total_entries > 0:
+    race_percentage = (race_count / total_entries) * 100
+    print(f"Percentage of {need_race}: {race_percentage:.2f}%")
+else:
+    print(f"No data available for {race_of_interest}")
+
+------------------
+19
+---------------
+top_m2 = grades.nlargest(3, 'Midterm 2')
+print(top_m2)
+merged_data = pd.merge(top_m2, hr, on='Student_id')
+print(merged_data)
+average_hr = merged_data['HR'].mean()
+
+print(f"Average Heart Rate of the top 3 students in Mid Term 2: {average_hr:.2f} mins")
